@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090909">
+  <title>Richard Alactuan | Portfolio</title>
+  <style>
+    :root {
+      --bg: #050817;
+      --panel: rgba(9, 17, 39, .88);
+      --panel-soft: rgba(12, 24, 49, .92);
+      --red: #00e5ff;
+      --red-dark: #642cff;
+      --text: #f5f8ff;
+      --muted: #b5c3df;
+      --line: rgba(75, 190, 255, .35);
+      --cyan: #00e5ff;
+      --purple: #8b3dff;
+      --pink: #ff35cf;
+      --blue: #287bff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(ellipse at 12% 15%, rgba(0,229,255,.18), transparent 32%),
+        radial-gradient(ellipse at 88% 28%, rgba(139,61,255,.2), transparent 34%),
+        radial-gradient(ellipse at 50% 82%, rgba(255,53,207,.12), transparent 38%),
+        repeating-linear-gradient(135deg, rgba(30,115,255,.045) 0 2px, transparent 2px 13px);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: -1;
+      opacity: .24;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+    }
+    a { color: inherit; }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      min-height: 88px;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(4, 9, 25, .94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line); box-shadow: 0 5px 30px rgba(0,180,255,.12);
+    }
+    .brand {
+      background: linear-gradient(90deg, var(--cyan), #fff, var(--pink));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      text-decoration: none;
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 800;
+      letter-spacing: -.8px;
+    }
+    .brand-mark { margin-right: 9px; font-family: monospace; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a {
+      text-decoration: none;
+      color: #e8e8e8;
+      font-size: 15px;
+      font-weight: 700;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover, .nav-links a:focus { color: var(--red); }
+    .menu-button {
+      display: none;
+      background: transparent;
+      border: 0;
+      color: white;
+      font-size: 34px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    section { padding: 90px 8%; scroll-margin-top: 85px; }
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      max-width: 1250px;
+      margin: auto;
+    }
+    .eyebrow { color: var(--red); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+    h1 { font-size: clamp(38px, 6vw, 68px); line-height: 1.12; margin: 14px 0 20px; }
+    h1 span, .section-title span { color: var(--red); }
+    .hero-copy p, .about-card p { color: var(--muted); font-size: 18px; max-width: 650px; }
+    .button {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 13px 25px;
+      border-radius: 7px;
+      background: linear-gradient(110deg, var(--cyan), var(--blue), var(--purple), var(--pink));
+      border: 1px solid rgba(255,255,255,.35);
+      color: white;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .button:hover { filter: brightness(1.18); transform: translateY(-3px); box-shadow: 0 0 28px rgba(0,229,255,.45); }
+    .profile-wrap { flex: 0 0 270px; text-align: center; }
+    .profile {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      background: linear-gradient(#081329, #081329) padding-box, linear-gradient(135deg, var(--cyan), var(--purple), var(--pink)) border-box;
+      box-shadow: 0 0 28px rgba(0,229,255,.28), 0 0 55px rgba(139,61,255,.2);
+    }
+    .section-title { text-align: center; font-size: clamp(31px, 4vw, 43px); margin-bottom: 42px; line-height: 1.2; text-shadow: 0 0 22px rgba(0,229,255,.25); }
+    .section-title span, h1 span { background: linear-gradient(90deg, var(--cyan), #8b8cff, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    section:not(.hero) { position: relative; }
+    section:not(.hero)::before { content: ""; position: absolute; width: 220px; height: 220px; border: 1px solid rgba(0,229,255,.13); transform: rotate(35deg); right: 3%; top: 12%; border-radius: 35px; box-shadow: 0 0 45px rgba(139,61,255,.1), inset 0 0 35px rgba(0,229,255,.06); pointer-events: none; }
+    .hero { position: relative; }
+    .hero::after { content: ""; position: absolute; inset: 8% -2%; z-index: -1; background: radial-gradient(ellipse at 20% 45%, rgba(0,229,255,.13), transparent 42%), radial-gradient(ellipse at 80% 55%, rgba(139,61,255,.16), transparent 45%); filter: blur(12px); }
+    .skill-card { border-color: rgba(139,61,255,.65); box-shadow: 0 0 30px rgba(0,229,255,.12), 0 0 30px rgba(139,61,255,.14), inset 0 0 30px rgba(0,229,255,.06); }
+    .skill-icon { color: var(--cyan); text-shadow: 0 0 18px var(--cyan); }
+    .about-card, .skill-card {
+      max-width: 900px;
+      margin: auto;
+      padding: 38px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(145deg, rgba(13,27,57,.92), rgba(8,12,31,.9));
+      box-shadow: 0 12px 35px rgba(0,0,0,.35), inset 0 0 35px rgba(0,180,255,.055), 0 0 22px rgba(55,90,255,.12);
+      backdrop-filter: blur(12px);
+    }
+    .about-card p { max-width: none; }
+    .skill-card { max-width: 430px; text-align: center; }
+    .skill-icon { color: var(--red); font-size: 42px; margin-bottom: 7px; }
+    .skill-card h3 { font-size: 23px; margin-bottom: 8px; }
+    .skill-card p { color: var(--muted); }
+
+    /* Contact section styled after the supplied reference image */
+    .contact-section { padding-top: 75px; padding-bottom: 90px; }
+    .contact-panel {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: clamp(28px, 5vw, 62px);
+      background: linear-gradient(145deg, rgba(9,20,45,.96), rgba(14,10,38,.94));
+      border: 1px solid rgba(0,229,255,.42);
+      box-shadow: 0 0 35px rgba(0,150,255,.12), inset 0 0 40px rgba(139,61,255,.08);
+      backdrop-filter: blur(14px);
+      border-radius: 3px;
+    }
+    .contact-panel h2 { font-size: clamp(32px, 5vw, 43px); margin-bottom: 28px; line-height: 1.2; }
+    .contact-intro { color: var(--muted); font-size: 19px; max-width: 720px; margin-bottom: 42px; }
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 52px; align-items: start; }
+    .contact-item { display: flex; align-items: center; gap: 22px; margin: 0 0 25px; min-width: 0; }
+    .contact-icon {
+      flex: 0 0 68px;
+      width: 68px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: white;
+      background: linear-gradient(135deg, rgba(0,229,255,.2), rgba(139,61,255,.28), rgba(255,53,207,.18));
+      border: 1px solid rgba(0,229,255,.6);
+      box-shadow: 0 0 22px rgba(0,180,255,.18);
+      font-size: 27px;
+    }
+    .contact-item h3 { font-size: 20px; margin-bottom: 2px; }
+    .contact-item a, .contact-item span { color: var(--muted); text-decoration: none; font-size: 17px; overflow-wrap: anywhere; }
+    .contact-item a:hover { color: #fff; }
+    .contact-form { display: grid; gap: 18px; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 18px 20px;
+      color: white;
+      background: var(--panel-soft);
+      border: 1px solid rgba(85,155,255,.35);
+      border-radius: 10px;
+      outline: none;
+      font: inherit;
+      font-size: 17px;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--red); box-shadow: 0 0 0 2px rgba(0,229,255,.12); }
+    .contact-form textarea { min-height: 190px; resize: vertical; }
+    .contact-form button {
+      padding: 17px 22px;
+      border: 0;
+      border-radius: 9px;
+      color: white;
+      background: linear-gradient(100deg, var(--cyan), var(--blue), var(--purple), var(--pink));
+      font: inherit;
+      font-size: 20px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(229,9,20,.16);
+    }
+    .contact-form button:hover { filter: brightness(1.18); box-shadow: 0 0 30px rgba(0,229,255,.35); }
+    .form-note { margin-top: -5px; color: #888; font-size: 13px; }
+    footer { padding: 25px 5%; text-align: center; color: #858585; background: rgba(4,8,22,.96); border-top: 1px solid var(--line); }
+
+    @media (max-width: 760px) {
+      header { min-height: 78px; padding: 17px 5%; }
+      .menu-button { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        padding: 18px 5% 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 17px;
+        background: rgba(5,10,28,.98);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 16px; }
+      section { padding: 70px 6%; }
+      .hero { min-height: auto; flex-direction: column-reverse; text-align: center; gap: 28px; padding-top: 65px; }
+      .profile-wrap { flex-basis: auto; }
+      .profile { width: 205px; height: 205px; }
+      .hero-copy p { font-size: 16px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 25px; }
+      .contact-panel { padding: 28px 20px; }
+      .contact-intro { font-size: 17px; margin-bottom: 30px; }
+      .contact-item { gap: 15px; }
+      .contact-icon { flex-basis: 58px; width: 58px; height: 58px; font-size: 23px; }
+      .contact-item a, .contact-item span { font-size: 15px; }
+      .about-card, .skill-card { padding: 27px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a class="brand" href="#home"><span class="brand-mark">&gt;_</span> Richard Alactuan</a>
+    <button class="menu-button" id="menuButton" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow">Welcome to my portfolio</div>
+        <h1>Hello, I'm <span>Richard Alactuan</span></h1>
+        <p>I am interested in computers and technology. I enjoy learning new things, improving my skills, and exploring opportunities to grow.</p>
+        <a class="button" href="#about">Explore My Portfolio</a>
+      </div>
+      <div class="profile-wrap">
+        <img src="1792245467433.jpg" alt="My Profile Picture" class="profile">
+        <div class="profile" style="display:none; place-items:center; align-content:center; gap:8px; margin:auto; color:#ddd; font-size:15px; border:3px dashed var(--red); border-radius:50%; padding:25px; text-align:center;"><span style="font-size:42px;">＋</span><strong>YOUR PHOTO HERE</strong><span style="font-size:12px; color:#aaa;">Upload your picture as<br>profile.jpg</span></div>
+      </div>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About <span>Me</span></h2>
+      <div class="about-card">
+        <p>Hello! My name is Richard Alactuan. I have basic computer skills and a strong interest in technology. I am willing to learn, practice, and develop my knowledge so I can become better and gain new experiences.</p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">My <span>Skills</span></h2>
+      <div class="skill-card">
+        <div class="skill-icon">⌨</div>
+        <h3>Basic Computer</h3>
+        <p>Basic computer knowledge and operations, with a willingness to learn more about technology.</p>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div class="contact-panel">
+        <h2>Let's <span style="color:var(--red)">Connect</span></h2>
+        <p class="contact-intro">I'm open to connecting, learning, and discussing new opportunities. Feel free to send me a message!</p>
+
+        <div class="contact-grid">
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">✉</div>
+              <div>
+                <h3>Email</h3>
+                <a href="mailto:richardalactuan@gmail.com">richardalactuan@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">⌕</div>
+              <div>
+                <h3>GitHub</h3>
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer">github.com — add your username</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">☎</div>
+              <div>
+                <h3>Phone</h3>
+                <a href="tel:096666666666677">096666666666677</a>
+              </div>
+            </div>
+          </div>
+
+          <form class="contact-form" id="contactForm">
+            <input type="text" id="senderName" placeholder="Your Name" aria-label="Your Name" required>
+            <input type="email" id="senderEmail" placeholder="Your Email Address" aria-label="Your Email Address" required>
+            <textarea id="senderMessage" placeholder="Your Message..." aria-label="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+            <p class="form-note">The button opens your email app with your message ready to send.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Richard Alactuan | All Rights Reserved</footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+    menuButton.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
+      menuButton.textContent = isOpen ? '×' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+        menuButton.textContent = '☰';
+      });
+    });
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const name = document.getElementById('senderName').value.trim();
+      const email = document.getElementById('senderEmail').value.trim();
+      const message = document.getElementById('senderMessage').value.trim();
+      const subject = encodeURIComponent('Portfolio message from ' + name);
+      const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message);
+      window.location.href = 'mailto:richardalactuan@gmail.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
